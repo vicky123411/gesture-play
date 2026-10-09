@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1d0f3a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Gesture Play</title>
+  <meta name="description" content="Gesture Play – play with your hands in front of the camera. 用手勢來玩遊戲！">
+  <link rel="icon" href="TemplateData/favicon.ico">
+  <style>
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1d0f3a; }
+    body { font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", "Segoe UI", Roboto, sans-serif; color: #fff; }
+    #game { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; background: #1d0f3a; outline: none; touch-action: none; }
+
+    .cover { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+             text-align: center; padding: 16px; box-sizing: border-box;
+             background: radial-gradient(circle at 50% 35%, #ff9b54 0%, #c8406b 38%, #3b1b6e 75%, #1d0f3a 100%); }
+    .title { font-size: clamp(34px, 8vw, 72px); font-weight: 800; letter-spacing: 1px; text-shadow: 0 4px 0 rgba(0,0,0,.25); margin: 0; }
+    .sub { font-size: clamp(16px, 3.4vw, 24px); margin: 8px 0 24px; opacity: .95; }
+    .hand { font-size: clamp(56px, 12vw, 110px); animation: wave 1.6s ease-in-out infinite; transform-origin: 70% 70%; }
+    @keyframes wave { 0%,100% { transform: rotate(0) } 25% { transform: rotate(18deg) } 75% { transform: rotate(-10deg) } }
+
+    .bar { width: min(420px, 80vw); height: 18px; border-radius: 12px; background: rgba(255,255,255,.25); overflow: hidden; }
+    .fill { height: 100%; width: 0%; border-radius: 12px; background: linear-gradient(90deg, #ffe066, #ffb703); transition: width .2s; }
+    .pct { margin-top: 10px; font-size: 16px; opacity: .9; }
+    .tips { margin-top: 24px; font-size: clamp(14px, 2.8vw, 18px); line-height: 1.6; opacity: .95; }
+    .tips b { color: #ffe066; }
+
+    #error { display: none; background: rgba(0,0,0,.55); border-radius: 16px; padding: 16px 20px; max-width: 560px; margin-top: 20px; font-size: 16px; line-height: 1.5; }
+    #rotate { display: none; z-index: 10; }
+    #rotate .phone { font-size: 72px; animation: turn 2s ease-in-out infinite; }
+    @keyframes turn { 0%,30% { transform: rotate(0) } 60%,100% { transform: rotate(-90deg) } }
+    @media (orientation: portrait) and (max-width: 900px) { body.mobile #rotate { display: flex; } }
+  </style>
+</head>
+<body>
+  <canvas id="game" tabindex="-1"></canvas>
+
+  <!-- loading screen -->
+  <div id="loading" class="cover">
+    <div class="hand">👋</div>
+    <h1 class="title">Gesture Play</h1>
+    <div class="sub">手勢遊戲 · 和奎師那一起玩</div>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <div class="pct" id="pct">載入中… Loading… 0%</div>
+    <div class="tips">
+      📷 請按 <b>「允許」</b> 使用相機 · Please <b>Allow</b> the camera<br>
+      ✋ 把手放在相機前面 · Show your hand to the camera
+    </div>
+    <div id="error"></div>
+  </div>
+
+  <!-- turn your phone -->
+  <div id="rotate" class="cover">
+    <div class="phone">📱</div>
+    <h2 class="title" style="font-size:clamp(26px,7vw,40px)">請把手機轉成橫的</h2>
+    <div class="sub">Please turn your phone sideways</div>
+  </div>
+
+  <script>
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+                   (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);   // iPad shows as Mac
+    if (isMobile) document.body.classList.add("mobile");
+
+    var canvas = document.getElementById("game");
+    var fill = document.getElementById("fill");
+    var pct = document.getElementById("pct");
+    var errorBox = document.getElementById("error");
+
+    function showError(msg) {
+      errorBox.style.display = "block";
+      errorBox.innerHTML = "😢 遊戲無法開啟 · The game could not start.<br><br>" +
+        "請用最新版的 <b>Chrome</b>、<b>Edge</b> 或 <b>Safari</b> 再試一次。<br>" +
+        "Please try again in the newest <b>Chrome</b>, <b>Edge</b> or <b>Safari</b>.<br><br>" +
+        "<small style='opacity:.7'>" + String(msg).replace(/</g, "&lt;") + "</small>";
+      pct.style.display = "none";
+    }
+
+    var config = {
+      arguments: [],
+      dataUrl: "Build/Web.data.unityweb",
+      frameworkUrl: "Build/Web.framework.js.unityweb",
+      codeUrl: "Build/Web.wasm.unityweb",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "GesturePlay",
+      productName: "Gesture Play",
+      productVersion: "1.0",
+      autoSyncPersistentDataPath: true,                        // keep scores and stamps between visits
+      devicePixelRatio: isMobile ? Math.min(window.devicePixelRatio || 1, 1.5) : undefined,   // smoother on phones
+      showBanner: function (msg, type) { if (type === "error") showError(msg); else console.log(msg); }
+    };
+
+    var script = document.createElement("script");
+    script.src = "Build/Web.loader.js";
+    script.onerror = function () { showError("Loader could not be downloaded."); };
+    script.onload = function () {
+      createUnityInstance(canvas, config, function (progress) {
+        var p = Math.round(progress * 100);
+        fill.style.width = p + "%";
+        pct.textContent = "載入中… Loading… " + p + "%";
+      }).then(function () {
+        document.getElementById("loading").style.display = "none";
+        canvas.focus();
+      }).catch(showError);
+    };
+    document.body.appendChild(script);
+  </script>
+</body>
+</html>
