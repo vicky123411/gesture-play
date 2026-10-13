@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1d0f3a">
+  <title>Gesture Play – Get the app</title>
+  <meta name="description" content="Download Gesture Play for Android, iPhone, iPad and computers. 下載手勢遊戲 App。">
+  <link rel="icon" href="TemplateData/favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <style>
+    :root { --gold: #ffe066; --card: rgba(255,255,255,.12); --line: rgba(255,255,255,.28); }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body { font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", "Segoe UI", Roboto, sans-serif; color: #fff;
+           background: radial-gradient(circle at 50% 0%, #ff9b54 0%, #c8406b 30%, #3b1b6e 70%, #1d0f3a 100%) fixed; background-color: #1d0f3a; }
+    main { max-width: 760px; margin: 0 auto; padding: 28px 16px 48px; }
+    header { text-align: center; }
+    header img { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+    h1 { font-size: clamp(32px, 7vw, 52px); margin: 14px 0 4px; text-shadow: 0 3px 0 rgba(0,0,0,.25); }
+    .sub { margin: 0 0 22px; font-size: 18px; opacity: .95; }
+    .play { display: inline-block; margin-bottom: 26px; padding: 14px 34px; border-radius: 999px; background: #43b05c; color: #fff;
+            font-size: 22px; font-weight: 800; text-decoration: none; box-shadow: 0 5px 0 #2c7d3e; }
+    section { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 20px; margin: 16px 0; }
+    section.mine { border: 3px solid var(--gold); background: rgba(255,255,255,.18); }
+    .tag { display: none; float: right; background: var(--gold); color: #5a2d14; font-weight: 800; font-size: 13px; padding: 4px 10px; border-radius: 999px; }
+    section.mine .tag { display: inline-block; }
+    h2 { margin: 0 0 4px; font-size: 24px; }
+    h2 small { display: block; font-size: 15px; font-weight: 600; opacity: .85; margin-top: 2px; }
+    ol { margin: 12px 0 0; padding-left: 22px; line-height: 1.7; font-size: 16px; }
+    li b { color: var(--gold); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; margin: 14px 10px 0 0; padding: 13px 22px; border-radius: 14px; border: 0;
+           background: var(--gold); color: #5a2d14; font-size: 18px; font-weight: 800; text-decoration: none; cursor: pointer; font-family: inherit; }
+    .btn.light { background: rgba(255,255,255,.9); }
+    .btn[hidden] { display: none; }
+    .btn:disabled { opacity: .7; cursor: default; }
+    .progress { height: 12px; border-radius: 8px; background: rgba(255,255,255,.25); overflow: hidden; margin-top: 12px; display: none; }
+    .progress div { height: 100%; width: 0%; background: linear-gradient(90deg, #ffe066, #ffb703); transition: width .2s; }
+    .note { font-size: 14px; opacity: .85; margin-top: 10px; line-height: 1.5; }
+    .qr { text-align: center; }
+    .qr img { width: 200px; max-width: 70vw; background: #fff; border-radius: 16px; padding: 8px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="icons/icon-512.png" alt="Gesture Play">
+    <h1>Gesture Play</h1>
+    <p class="sub">手勢遊戲 · 和奎師那一起玩<br>A hand-gesture game for children</p>
+    <a class="play" href="./">▶ 現在就玩 · Play now</a>
+  </header>
+
+  <section id="android">
+    <span class="tag">你的裝置 · Your device</span>
+    <h2>🤖 Android 手機 / 平板<small>Android phone &amp; tablet</small></h2>
+    <button class="btn" id="apkBtn">⬇️ 下載 App · Download app (APK)</button>
+    <button class="btn light" id="installBtnA" hidden>📲 從瀏覽器安裝 · Install from browser</button>
+    <div class="progress" id="apkProgress"><div></div></div>
+    <div class="note" id="apkNote">約 106 MB · about 106 MB</div>
+    <ol>
+      <li>按 <b>下載 App</b>，等它下載完 · Tap <b>Download app</b> and wait</li>
+      <li>打開下載的 <b>GesturePlay.apk</b> · Open the downloaded <b>GesturePlay.apk</b></li>
+      <li>如果手機問，按 <b>允許安裝</b> · If asked, <b>allow installing</b> from this source</li>
+      <li>按 <b>安裝</b>，然後打開 Gesture Play · Tap <b>Install</b>, then open Gesture Play</li>
+    </ol>
+  </section>
+
+  <section id="ios">
+    <span class="tag">你的裝置 · Your device</span>
+    <h2>🍎 iPhone / iPad<small>iPhone &amp; iPad</small></h2>
+    <ol>
+      <li>用 <b>Safari</b> 打開這一頁 · Open this page in <b>Safari</b></li>
+      <li>按下面的 <b>分享</b> 按鈕 <b>⬆️</b> · Tap the <b>Share</b> button <b>⬆️</b></li>
+      <li>選 <b>加入主畫面</b> · Choose <b>Add to Home Screen</b></li>
+      <li>按 <b>新增</b>，主畫面就會出現 Gesture Play · Tap <b>Add</b>: Gesture Play appears on your Home Screen</li>
+    </ol>
+    <div class="note">打開後請允許使用相機 · Allow the camera when the app asks.</div>
+  </section>
+
+  <section id="computer">
+    <span class="tag">你的裝置 · Your device</span>
+    <h2>💻 電腦<small>Windows, Mac, Linux</small></h2>
+    <button class="btn" id="installBtnC" hidden>📲 安裝 App · Install app</button>
+    <a class="btn light" href="downloads/Gesture-Play.html" download="Gesture Play.html">⬇️ 下載遊戲檔案 · Download game file</a>
+    <ol>
+      <li><b>安裝 App</b>：用 Chrome 或 Edge，遊戲會變成一個 App · <b>Install app</b> (Chrome or Edge): the game becomes an app on your computer</li>
+      <li><b>下載遊戲檔案</b>：一個檔案，點兩下就能玩，不用網路 · <b>Download game file</b>: one file, double-click to play, no internet needed (about 65 MB)</li>
+    </ol>
+  </section>
+
+  <section class="qr">
+    <h2>📷 用手機掃描 · Scan with your phone</h2>
+    <img src="icons/qr-download.png" alt="QR code for this page">
+  </section>
+</main>
+
+<script>
+  var ua = navigator.userAgent;
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var mine = isIOS ? "ios" : isAndroid ? "android" : "computer";
+  var mineEl = document.getElementById(mine);
+  mineEl.classList.add("mine");
+  mineEl.parentNode.insertBefore(mineEl, mineEl.parentNode.children[1]);   // your device first
+
+  // "Install app" (Android Chrome, Chrome / Edge on computers)
+  var installEvent = null;
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault(); installEvent = e;
+    document.getElementById("installBtnA").hidden = false;
+    document.getElementById("installBtnC").hidden = false;
+  });
+  function install() { if (installEvent) { installEvent.prompt(); installEvent = null; } }
+  document.getElementById("installBtnA").onclick = install;
+  document.getElementById("installBtnC").onclick = install;
+  if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(function () {});
+
+  // Android app: the file is kept in a few pieces on the website; join them into one APK here
+  var apkBtn = document.getElementById("apkBtn"), bar = document.querySelector("#apkProgress div"), note = document.getElementById("apkNote");
+  apkBtn.onclick = async function () {
+    apkBtn.disabled = true;
+    document.getElementById("apkProgress").style.display = "block";
+    try {
+      var info = await (await fetch("downloads/android/parts.json", { cache: "no-store" })).json();
+      var pieces = [], got = 0;
+      for (var i = 0; i < info.parts.length; i++) {
+        var res = await fetch("downloads/android/" + info.parts[i], { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        var reader = res.body.getReader(), chunks = [];
+        while (true) {
+          var r = await reader.read();
+          if (r.done) break;
+          chunks.push(r.value); got += r.value.length;
+          var p = Math.round(got / info.size * 100);
+          bar.style.width = p + "%";
+          note.textContent = "下載中 Downloading… " + p + "%";
+        }
+        pieces.push(new Blob(chunks));
+      }
+      var blob = new Blob(pieces, { type: "application/vnd.android.package-archive" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = "GesturePlay.apk";
+      document.body.appendChild(a); a.click(); a.remove();
+      note.textContent = "✅ 下載好了！打開 GesturePlay.apk 來安裝 · Done! Open GesturePlay.apk to install";
+    } catch (e) {
+      note.textContent = "😢 下載失敗，請再試一次 · Download failed, please try again (" + e.message + ")";
+    }
+    apkBtn.disabled = false;
+  };
+</script>
+</body>
+</html>

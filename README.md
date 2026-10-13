@@ -10,6 +10,14 @@ Scan with your phone camera:
 
 <img src="qr.png" alt="QR code to play Gesture Play" width="220">
 
+## 📲 Get the app
+
+**[Download Gesture Play](https://vicky123411.github.io/gesture-play/download.html)** for Android, iPhone, iPad and computers.
+
+- **Android phone and tablet**: download the app (APK) and install it.
+- **iPhone and iPad**: open the page in Safari, then tap Share, then **Add to Home Screen**.
+- **Computer**: install it from Chrome or Edge, or download one game file that opens with a double-click.
+
 ## How to play
 
 1. Open the link and wait for the loading bar to reach 100%. The first visit takes a little longer (about 50 MB).

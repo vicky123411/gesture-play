@@ -9,6 +9,10 @@
   <title>Gesture Play</title>
   <meta name="description" content="Gesture Play – play with your hands in front of the camera. 用手勢來玩遊戲！">
   <link rel="icon" href="TemplateData/favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="Gesture Play">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
     html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1d0f3a; }
     body { font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", "Segoe UI", Roboto, sans-serif; color: #fff; }
@@ -28,6 +32,9 @@
     .tips { margin-top: 24px; font-size: clamp(14px, 2.8vw, 18px); line-height: 1.6; opacity: .95; }
     .tips b { color: #ffe066; }
 
+    .getapp { margin-top: 18px; display: inline-block; padding: 10px 22px; border-radius: 999px; background: rgba(255,255,255,.18);
+              border: 2px solid rgba(255,255,255,.55); color: #fff; font-size: 16px; font-weight: 700; text-decoration: none; }
+    body.standalone .getapp, body.offline-file .getapp { display: none; }
     #error { display: none; background: rgba(0,0,0,.55); border-radius: 16px; padding: 16px 20px; max-width: 560px; margin-top: 20px; font-size: 16px; line-height: 1.5; }
     #rotate { display: none; z-index: 10; }
     #rotate .phone { font-size: 72px; animation: turn 2s ease-in-out infinite; }
@@ -49,6 +56,7 @@
       📷 請按 <b>「允許」</b> 使用相機 · Please <b>Allow</b> the camera<br>
       ✋ 把手放在相機前面 · Show your hand to the camera
     </div>
+    <a class="getapp" href="download.html">📲 下載 App · Get the app</a>
     <div id="error"></div>
   </div>
 
@@ -63,6 +71,11 @@
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
                    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);   // iPad shows as Mac
     if (isMobile) document.body.classList.add("mobile");
+    var isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.matchMedia("(display-mode: fullscreen)").matches || navigator.standalone;
+    if (isStandalone) document.body.classList.add("standalone");          // opened as an installed app
+    if (location.protocol === "file:") document.body.classList.add("offline-file");
+    // keep the game on the device (so the installed app also opens without internet)
+    if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(function () {});
 
     var canvas = document.getElementById("game");
     var fill = document.getElementById("fill");
