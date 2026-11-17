@@ -1,5 +1,5 @@
 // Keeps the game on the device after the first visit, so the installed app opens even without internet.
-const VERSION = "gp-3ef082066e";
+const VERSION = "gp-8d273eb120";
 const CORE = ["./", "index.html", "download.html", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
